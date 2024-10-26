@@ -46,6 +46,9 @@ class TBGatewayMqttClient(TBDeviceMqttClient):
                  device_messages_rate_limit="DEFAULT_MESSAGES_RATE_LIMIT",
                  device_telemetry_rate_limit="DEFAULT_TELEMETRY_RATE_LIMIT",
                  device_telemetry_dp_rate_limit="DEFAULT_TELEMETRY_DP_RATE_LIMIT", **kwargs):
+        
+        log.info("Started init of TBGatewayMqttClient")
+
         # Added for compatibility with the old versions
         if kwargs.get('rate_limit') or kwargs.get('dp_rate_limit'):
             messages_rate_limit = messages_rate_limit if kwargs.get('rate_limit') == "DEFAULT_RATE_LIMIT" else kwargs.get('rate_limit', messages_rate_limit)
@@ -79,6 +82,9 @@ class TBGatewayMqttClient(TBDeviceMqttClient):
         self._client._on_unsubscribe = self._on_unsubscribe
         self._gw_subscriptions = {}
         self.gateway = gateway
+
+        log.info("Finished init of TBGatewayMqttClient")
+
 
     def _on_connect(self, client, userdata, flags, result_code, *extra_params):
         super()._on_connect(client, userdata, flags, result_code, *extra_params)

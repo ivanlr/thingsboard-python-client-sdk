@@ -329,6 +329,8 @@ class TBDeviceMqttClient:
                  chunk_size=0, messages_rate_limit="DEFAULT_MESSAGES_RATE_LIMIT",
                  telemetry_rate_limit="DEFAULT_TELEMETRY_RATE_LIMIT",
                  telemetry_dp_rate_limit="DEFAULT_TELEMETRY_DP_RATE_LIMIT", max_payload_size=8196, **kwargs):
+        
+        log.info("Started init of TBDeviceMqttClient")
         # Added for compatibility with old versions
         if kwargs.get('rate_limit') is not None or kwargs.get('dp_rate_limit') is not None:
             messages_rate_limit = messages_rate_limit if kwargs.get('rate_limit') == "DEFAULT_RATE_LIMIT" else kwargs.get('rate_limit', messages_rate_limit)
@@ -387,6 +389,9 @@ class TBDeviceMqttClient:
         self.__request_service_configuration_required = False
         self.__service_loop = Thread(target=self.__service_loop, name="Service loop", daemon=True)
         self.__service_loop.start()
+
+        log.info("Finished init of TBDeviceMqttClient")
+
 
     def __service_loop(self):
         while not self.stopped:
@@ -473,6 +478,9 @@ class TBDeviceMqttClient:
 
     def connect(self, callback=None, min_reconnect_delay=1, timeout=120, tls=False, ca_certs=None, cert_file=None,
                 key_file=None, keepalive=120):
+        
+        log.info("Started connect of TBDeviceMqttClient")
+        
         """Connect to ThingsBoard. The callback will be called when the connection is established."""
         if tls:
             try:
@@ -489,6 +497,9 @@ class TBDeviceMqttClient:
         self._client.connect(self.__host, self.__port, keepalive=keepalive)
         self._client.loop_start()
         self.__connect_callback = callback
+
+        log.info("Finished connect of TBDeviceMqttClient")
+
 
     def disconnect(self):
         """Disconnect from ThingsBoard."""
