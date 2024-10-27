@@ -494,11 +494,18 @@ class TBDeviceMqttClient:
                                      tls_version=ssl.PROTOCOL_TLSv1_2,
                                      ciphers=None)
                 self._client.tls_insecure_set(False)
+                log.info(f"End try Error in connect from tb_device_mqtt.")
             except ValueError:
+                log.info(f"Error in connect from tb_device_mqtt, when calling _client.tls_set. Error: {ValueError}")
                 pass
         self.reconnect_delay_set(min_reconnect_delay, timeout)
         self._client.connect(self.__host, self.__port, keepalive=keepalive)
+
+        log.info(f"Connected paho client in connect from tb_device_mqtt.")
+
         self._client.loop_start()
+
+        log.info(f"Loop started in connect from tb_device_mqtt.")
         self.__connect_callback = callback
 
         log.info("Finished connect of TBDeviceMqttClient")
