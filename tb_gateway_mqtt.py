@@ -48,6 +48,7 @@ class TBGatewayMqttClient(TBDeviceMqttClient):
                  device_telemetry_dp_rate_limit="DEFAULT_TELEMETRY_DP_RATE_LIMIT", **kwargs):
         
         log.info("Started init of TBGatewayMqttClient")
+        print("Started init of TBGatewayMqttClient")
 
         # Added for compatibility with the old versions
         if kwargs.get('rate_limit') or kwargs.get('dp_rate_limit'):
@@ -84,6 +85,7 @@ class TBGatewayMqttClient(TBDeviceMqttClient):
         self.gateway = gateway
 
         log.info("Finished init of TBGatewayMqttClient")
+        print("Finished init of TBGatewayMqttClient")
 
 
     def _on_connect(self, client, userdata, flags, result_code, *extra_params):
